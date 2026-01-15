@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.env
+.databrickscfg
+*.log
+.DS_Store
