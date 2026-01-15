@@ -10,10 +10,25 @@ st.set_page_config(page_title="US Correctional Facilities", layout="wide")
 # Database connection
 @st.cache_resource
 def get_connection():
+    databricks_host = os.getenv("DATABRICKS_HOST")
+    warehouse_id = os.getenv("DATABRICKS_WAREHOUSE_ID")
+    token = os.getenv("DATABRICKS_TOKEN")
+
+    if not databricks_host:
+        raise RuntimeError("DATABRICKS_HOST is not set")
+    if not warehouse_id:
+        raise RuntimeError("DATABRICKS_WAREHOUSE_ID is not set")
+    if not token:
+        raise RuntimeError("DATABRICKS_TOKEN is not set")
+
+    # Strip scheme for SQL connector
+    server_hostname = databricks_host.replace("https://", "").replace("http://", "")
+    http_path = f"/sql/1.0/warehouses/{warehouse_id}"
+
     return sql.connect(
-        server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
-        http_path=os.getenv("DATABRICKS_HTTP_PATH"),
-        access_token=os.getenv("DATABRICKS_TOKEN")
+        server_hostname=server_hostname,
+        http_path=http_path,
+        access_token=token,
     )
 
 # Query data
