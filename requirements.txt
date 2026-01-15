@@ -1,5 +1,0 @@
-streamlit
-databricks-sql-connector
-databricks-sdk
-pandas
-pydeck
