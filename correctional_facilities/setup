@@ -1,0 +1,6 @@
+%bash
+# Install required packages
+pip install databricks-sdk
+pip install streamlit
+pip install pandas
+pip install databricks-sql-connector
