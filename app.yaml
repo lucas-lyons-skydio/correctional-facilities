@@ -5,7 +5,9 @@ command: [
 ]
 
 env:
-  - name: "2b54e8360234aba2"
-    valueFrom: "sql-warehouse"
-  - name: STREAMLIT_BROWSER_GATHER_USAGE_STATS
-    value: "false"
+  - name: DATABRICKS_HOST
+    value: "https://skydio-analytics.cloud.databricks.com"
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: "2b54e8360234aba2"
+  - name: DATABRICKS_TOKEN
+    valueFrom: "DATABRICKS_TOKEN" 

@@ -1,25 +1,19 @@
 import streamlit as st
-from databricks import sql
 import pandas as pd
-import os
 import pydeck as pdk
+
+from src.databricks_client import DatabricksClient, get_sql_connection
 
 # Page config
 st.set_page_config(page_title="US Correctional Facilities", layout="wide")
 
-# Database connection
-@st.cache_resource
-def get_connection():
-    return sql.connect(
-        server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
-        http_path=os.getenv("DATABRICKS_HTTP_PATH"),
-        access_token=os.getenv("DATABRICKS_TOKEN")
-    )
+#imports check
+print("Imports OK")
 
 # Query data
 @st.cache_data(ttl=3600)
 def load_facilities_data():
-    conn = get_connection()
+    conn = get_sql_connection()
     query = """
     WITH correctional_facilities AS (
       SELECT 
